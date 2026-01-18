@@ -1,0 +1,59 @@
+{
+	"name": "pipeline1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Wait1",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": {
+						"value": "@pipeline().parameters.Waittime",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Wait1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.filter",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@greater(item(),3 )",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"Waittime": {
+				"type": "int",
+				"defaultValue": 5
+			},
+			"filter": {
+				"type": "array",
+				"defaultValue": [
+					1,
+					2,
+					4,
+					6,
+					8.9
+				]
+			}
+		},
+		"annotations": []
+	}
+}
