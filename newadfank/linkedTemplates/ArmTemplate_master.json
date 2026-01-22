@@ -15,10 +15,6 @@
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com"
 		},
-		"Manager_Trigger_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
-		},
 		"Prod_Trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
@@ -63,35 +59,12 @@
 					"selfhostedRuntime1_properties_typeProperties_linkedInfo_resourceId": {
 						"value": "[parameters('selfhostedRuntime1_properties_typeProperties_linkedInfo_resourceId')]"
 					},
-					"Manager_Trigger_properties_typeProperties_scope": {
-						"value": "[parameters('Manager_Trigger_properties_typeProperties_scope')]"
-					}
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "newadfank_ArmTemplate_1",
-			"type": "Microsoft.Resources/deployments",
-			"apiVersion": "2024-03-01",
-			"properties": {
-				"mode": "incremental",
-				"templateLink": {
-					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
-					"contentVersion": "1.0.0.0"
-				},
-				"parameters": {
-					"factoryName": {
-						"value": "[parameters('factoryName')]"
-					},
 					"Prod_Trigger_properties_typeProperties_scope": {
 						"value": "[parameters('Prod_Trigger_properties_typeProperties_scope')]"
 					}
 				}
 			},
-			"dependsOn": [
-				"[resourceId('Microsoft.Resources/deployments', 'newadfank_ArmTemplate_0')]"
-			]
+			"dependsOn": []
 		}
 	]
 }

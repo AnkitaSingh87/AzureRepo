@@ -15,10 +15,6 @@
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com"
 		},
-		"Manager_Trigger_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
-		},
 		"Prod_Trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
@@ -1124,36 +1120,6 @@
 				}
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Manager_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "ManagerPipeline",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/source/blobs/csvfiles/Fact_Sales_1.csv",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Manager_Trigger_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ManagerPipeline')]"
-			]
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Prod_Trigger')]",

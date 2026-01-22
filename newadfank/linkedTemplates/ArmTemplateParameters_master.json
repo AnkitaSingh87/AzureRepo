@@ -11,9 +11,6 @@
 		"HTTPserver_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com"
 		},
-		"Manager_Trigger_properties_typeProperties_scope": {
-			"value": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
-		},
 		"Prod_Trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
 		},
