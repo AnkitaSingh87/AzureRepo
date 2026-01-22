@@ -55,7 +55,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "destination_git",
+						"referenceName": "destination_csv",
 						"type": "DatasetReference"
 					}
 				]

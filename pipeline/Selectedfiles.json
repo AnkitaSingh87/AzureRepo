@@ -177,7 +177,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "destination_git",
+						"referenceName": "destination_csv",
 						"type": "DatasetReference"
 					},
 					"timeout": "0.12:00:00",
