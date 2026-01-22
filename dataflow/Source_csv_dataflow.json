@@ -12,7 +12,15 @@
 					"name": "Dataflow"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Dataflow_output",
+						"type": "DatasetReference"
+					},
+					"name": "Outputreport"
+				}
+			],
 			"transformations": [
 				{
 					"name": "selectcolumns"
@@ -22,6 +30,15 @@
 				},
 				{
 					"name": "split1"
+				},
+				{
+					"name": "Replacenull"
+				},
+				{
+					"name": "Maxproduct"
+				},
+				{
+					"name": "alter"
 				}
 			],
 			"scriptLines": [
@@ -51,8 +68,29 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> selectcolumns",
 				"selectcolumns filter(customer_id !=12) ~> filtercols",
-				"filtercols split(ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(, )"
+				"filtercols split(payment=='visa',",
+				"     payment=='mastercard',",
+				"     disjoint: false) ~> split1@(visa, mastercard, amex)",
+				"split1@amex derive(payment = coalesce(payment,'N/A')) ~> Replacenull",
+				"split1@visa aggregate(groupBy(customer_id),",
+				"     product_id = max(product_id)) ~> Maxproduct",
+				"Maxproduct alterRow(insertIf(1==1)) ~> alter",
+				"alter sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          transaction_id as string,",
+				"          transactional_date as string,",
+				"          product_id as string,",
+				"          customer_id as string,",
+				"          payment as string,",
+				"          credit_card as string,",
+				"          loyalty_card as string,",
+				"          cost as string,",
+				"          quantity as string,",
+				"          price as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Outputreport"
 			]
 		}
 	}
