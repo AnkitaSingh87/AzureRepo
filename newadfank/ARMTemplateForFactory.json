@@ -248,7 +248,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "destination_git",
+								"referenceName": "Meta_data",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -425,8 +425,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/destination_git')]",
+				"[concat(variables('factoryId'), '/datasets/Meta_data')]",
 				"[concat(variables('factoryId'), '/dataflows/Source_csv_dataflow')]",
+				"[concat(variables('factoryId'), '/datasets/destination_git')]",
 				"[concat(variables('factoryId'), '/datasets/parametarized_File')]",
 				"[concat(variables('factoryId'), '/datasets/reporting_folder')]"
 			]
@@ -506,54 +507,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/All_files')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/medadatapip')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Get Metadata1",
-						"type": "GetMetadata",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "metadata",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"fieldList": [
-								"childItems"
-							],
-							"storeSettings": {
-								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2026-01-17T21:12:29Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/metadata')]"
 			]
 		},
 		{
@@ -892,7 +845,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/destination_git')]",
+			"name": "[concat(parameters('factoryName'), '/Meta_data')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -920,7 +873,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/metadata')]",
+			"name": "[concat(parameters('factoryName'), '/destination_git')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -933,6 +886,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "File.csv",
 						"folderPath": "csvfiles",
 						"container": "destination"
 					},
@@ -941,48 +895,7 @@
 					"firstRowAsHeader": true,
 					"quoteChar": "\""
 				},
-				"schema": [
-					{
-						"name": "transaction_id",
-						"type": "String"
-					},
-					{
-						"name": "transactional_date",
-						"type": "String"
-					},
-					{
-						"name": "product_id",
-						"type": "String"
-					},
-					{
-						"name": "customer_id",
-						"type": "String"
-					},
-					{
-						"name": "payment",
-						"type": "String"
-					},
-					{
-						"name": "credit_card",
-						"type": "String"
-					},
-					{
-						"name": "loyalty_card",
-						"type": "String"
-					},
-					{
-						"name": "cost",
-						"type": "String"
-					},
-					{
-						"name": "quantity",
-						"type": "String"
-					},
-					{
-						"name": "price",
-						"type": "String"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
