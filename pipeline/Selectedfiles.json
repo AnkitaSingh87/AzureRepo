@@ -133,7 +133,7 @@
 				}
 			},
 			{
-				"name": "Data flow1",
+				"name": "Transformation",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [
 					{
