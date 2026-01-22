@@ -20,6 +20,8 @@
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
 							"recursive": true,
+							"wildcardFolderPath": "csvfiles",
+							"wildcardFileName": ".csv",
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
@@ -34,7 +36,7 @@
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": ".csv"
+							"fileExtension": ""
 						}
 					},
 					"enableStaging": false,
@@ -55,7 +57,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "destination_git",
+						"referenceName": "All_files",
 						"type": "DatasetReference"
 					}
 				]
