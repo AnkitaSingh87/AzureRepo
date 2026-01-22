@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Github copy",
+				"name": "git_pipeline",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -48,7 +48,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "github_connection",
+						"referenceName": "Git_connection",
 						"type": "DatasetReference"
 					}
 				],
