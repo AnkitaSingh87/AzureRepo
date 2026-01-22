@@ -88,7 +88,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "destination_git",
+								"referenceName": "destination_csv",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -159,7 +159,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/All_files')]",
-				"[concat(variables('factoryId'), '/datasets/destination_git')]",
+				"[concat(variables('factoryId'), '/datasets/destination_csv')]",
 				"[concat(variables('factoryId'), '/pipelines/pipeline Git')]"
 			]
 		},
@@ -410,7 +410,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "destination_git",
+								"referenceName": "destination_csv",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -427,7 +427,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Meta_data')]",
 				"[concat(variables('factoryId'), '/dataflows/Source_csv_dataflow')]",
-				"[concat(variables('factoryId'), '/datasets/destination_git')]",
+				"[concat(variables('factoryId'), '/datasets/destination_csv')]",
 				"[concat(variables('factoryId'), '/datasets/parametarized_File')]",
 				"[concat(variables('factoryId'), '/datasets/reporting_folder')]"
 			]
@@ -867,6 +867,75 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/destination_csv')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "csvfiles",
+						"container": "destination"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "transaction_id",
+						"type": "String"
+					},
+					{
+						"name": "transactional_date",
+						"type": "String"
+					},
+					{
+						"name": "product_id",
+						"type": "String"
+					},
+					{
+						"name": "customer_id",
+						"type": "String"
+					},
+					{
+						"name": "payment",
+						"type": "String"
+					},
+					{
+						"name": "credit_card",
+						"type": "String"
+					},
+					{
+						"name": "loyalty_card",
+						"type": "String"
+					},
+					{
+						"name": "cost",
+						"type": "String"
+					},
+					{
+						"name": "quantity",
+						"type": "String"
+					},
+					{
+						"name": "price",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
