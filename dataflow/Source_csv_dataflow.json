@@ -1,0 +1,59 @@
+{
+	"name": "Source_csv_dataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Dataflow_data",
+						"type": "DatasetReference"
+					},
+					"name": "Dataflow"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "selectcolumns"
+				},
+				{
+					"name": "filtercols"
+				},
+				{
+					"name": "split1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          transaction_id as string,",
+				"          transactional_date as timestamp,",
+				"          product_id as string,",
+				"          customer_id as short,",
+				"          payment as string,",
+				"          credit_card as string,",
+				"          loyalty_card as string,",
+				"          cost as string,",
+				"          quantity as string,",
+				"          price as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Dataflow",
+				"Dataflow select(mapColumn(",
+				"          transaction_id,",
+				"          transactional_date,",
+				"          product_id,",
+				"          customer_id,",
+				"          payment,",
+				"          price",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectcolumns",
+				"selectcolumns filter(customer_id !=12) ~> filtercols",
+				"filtercols split(ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> split1@(, )"
+			]
+		}
+	}
+}
