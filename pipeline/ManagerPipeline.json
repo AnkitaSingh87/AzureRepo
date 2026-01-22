@@ -34,7 +34,7 @@
 						"formatSettings": {
 							"type": "DelimitedTextWriteSettings",
 							"quoteAllText": true,
-							"fileExtension": ""
+							"fileExtension": ".csv"
 						}
 					},
 					"enableStaging": false,
@@ -55,7 +55,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "All_files",
+						"referenceName": "destination_git",
 						"type": "DatasetReference"
 					}
 				]
