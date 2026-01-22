@@ -344,7 +344,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "AnkitaSingh87/AzureRepo/refs/heads/main/Fact_Sales_1.csv"
+						"relativeUrl": "AnkitaSingh87/AzureRepo/blob/main/Fact_Sales_2.csv"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -529,116 +529,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ManagerPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ""
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "All_files",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "destination_git",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "Delete1",
-						"type": "Delete",
-						"dependsOn": [
-							{
-								"activity": "Copy data1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "All_files",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"enableLogging": false,
-							"storeSettings": {
-								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							}
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/All_files')]",
-				"[concat(variables('factoryId'), '/datasets/destination_git')]"
 			]
 		},
 		{
@@ -947,15 +837,82 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Selectedfiles')]",
+			"name": "[concat(parameters('factoryName'), '/ManagerPipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Get Metadata1",
-						"type": "GetMetadata",
+						"name": "Copy data1",
+						"type": "Copy",
 						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ""
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "All_files",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "destination_git",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					},
+					{
+						"name": "Delete1",
+						"type": "Delete",
+						"dependsOn": [
+							{
+								"activity": "Copy data1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -967,6 +924,81 @@
 						"typeProperties": {
 							"dataset": {
 								"referenceName": "All_files",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"enableLogging": false,
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							}
+						}
+					},
+					{
+						"name": "pipeline Git",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Delete1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "pipeline Git",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/All_files')]",
+				"[concat(variables('factoryId'), '/datasets/destination_git')]",
+				"[concat(variables('factoryId'), '/pipelines/pipeline Git')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Selectedfiles')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Metadata1",
+						"type": "GetMetadata",
+						"dependsOn": [
+							{
+								"activity": "Validation_File",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "destination_git",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -1120,6 +1152,21 @@
 							},
 							"traceLevel": "Fine"
 						}
+					},
+					{
+						"name": "Validation_File",
+						"type": "Validation",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "destination_git",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"timeout": "0.12:00:00",
+							"sleep": 10
+						}
 					}
 				],
 				"policy": {
@@ -1128,10 +1175,68 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/All_files')]",
+				"[concat(variables('factoryId'), '/datasets/destination_git')]",
 				"[concat(variables('factoryId'), '/dataflows/Source_csv_dataflow')]",
 				"[concat(variables('factoryId'), '/datasets/parametarized_File')]",
 				"[concat(variables('factoryId'), '/datasets/reporting_folder')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Prod_Demo_Pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Manager_Pipeline1",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "ManagerPipeline",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Selected_Pipeline",
+						"type": "ExecutePipeline",
+						"dependsOn": [
+							{
+								"activity": "Manager_Pipeline1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Selectedfiles",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/ManagerPipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/Selectedfiles')]"
 			]
 		},
 		{
@@ -1148,6 +1253,13 @@
 							"type": "PipelineReference"
 						},
 						"parameters": {}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "Prod_Demo_Pipeline",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
 					}
 				],
 				"type": "BlobEventsTrigger",
@@ -1161,38 +1273,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/ManagerPipeline')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Selected_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Selectedfiles",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 15,
-						"startTime": "2026-01-22T14:36:00",
-						"endTime": "2026-01-23T09:00:00",
-						"timeZone": "India Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Selectedfiles')]"
+				"[concat(variables('factoryId'), '/pipelines/ManagerPipeline')]",
+				"[concat(variables('factoryId'), '/pipelines/Prod_Demo_Pipeline')]"
 			]
 		}
 	]
