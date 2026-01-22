@@ -52,8 +52,6 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"wildcardFolderPath": "csvfiles",
-									"wildcardFileName": ".csv",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -90,7 +88,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "All_files",
+								"referenceName": "destination_git",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -136,7 +134,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/All_files')]"
+				"[concat(variables('factoryId'), '/datasets/All_files')]",
+				"[concat(variables('factoryId'), '/datasets/destination_git')]"
 			]
 		},
 		{
@@ -608,6 +607,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "Fact_Sales_1.csv",
 						"folderPath": "csvfiles",
 						"container": "source"
 					},
