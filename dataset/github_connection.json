@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "AnkitaSingh87/AzureRepo/refs/heads/main/Fact_Sales_1.csv"
+				"relativeUrl": "AnkitaSingh87/AzureRepo/blob/main/Fact_Sales_2.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
