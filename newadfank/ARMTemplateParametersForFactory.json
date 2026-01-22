@@ -14,6 +14,9 @@
 		"Manager_Trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
 		},
+		"Prod_Trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourceGroups/TestEnv/providers/Microsoft.Storage/storageAccounts/datalakeank"
+		},
 		"selfhostedRuntime1_properties_typeProperties_linkedInfo_resourceId": {
 			"value": "/subscriptions/be0f9d26-e8f6-49e1-a9bf-f0c90e281f8f/resourcegroups/TestEnv/providers/Microsoft.DataFactory/factories/ADFdemoAnk/integrationruntimes/integrationRuntime1"
 		}
