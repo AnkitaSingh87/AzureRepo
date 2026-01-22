@@ -23,7 +23,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "destination_git",
+						"referenceName": "Meta_data",
 						"type": "DatasetReference"
 					},
 					"fieldList": [

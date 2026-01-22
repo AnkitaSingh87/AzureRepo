@@ -1,5 +1,5 @@
 {
-	"name": "destination_git",
+	"name": "Meta_data",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
@@ -10,7 +10,6 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "file2.csv",
 				"folderPath": "csvfiles",
 				"container": "destination"
 			},
@@ -20,6 +19,5 @@
 			"quoteChar": "\""
 		},
 		"schema": []
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
