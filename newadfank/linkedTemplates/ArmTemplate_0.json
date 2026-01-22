@@ -303,6 +303,33 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Git_connection')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "HTTPserver",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "AnkitaSingh87/AzureRepo/refs/heads/main/Fact_Sales_2.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/HTTPserver')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/destination_git')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -328,33 +355,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/github_connection')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "HTTPserver",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": "AnkitaSingh87/AzureRepo/blob/main/Fact_Sales_2.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/HTTPserver')]"
 			]
 		},
 		{
@@ -663,7 +663,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Github copy",
+						"name": "git_pipeline",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -708,7 +708,7 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "github_connection",
+								"referenceName": "Git_connection",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -729,7 +729,7 @@
 				"lastPublishTime": "2026-01-17T21:12:29Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/github_connection')]",
+				"[concat(variables('factoryId'), '/datasets/Git_connection')]",
 				"[concat(variables('factoryId'), '/datasets/destination_git')]"
 			]
 		},
