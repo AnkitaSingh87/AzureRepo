@@ -15,10 +15,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "metadata",
-						"type": "DatasetReference"
-					},
 					"fieldList": [
 						"childItems"
 					],
